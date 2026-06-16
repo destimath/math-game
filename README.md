@@ -2,6 +2,8 @@
 
 Game edukasi matematika berbasis browser untuk siswa SD kelas 1–6. Pemain menjelajahi peta Nusantara — dari Sumatra hingga Papua — sambil menyelesaikan tantangan matematika yang terbungkus dalam alur cerita kerajaan dan legenda Indonesia.
 
+![Screenshot 1](1.jpg) ![Screenshot 2](2.jpg) ![Screenshot 3](3.jpg)
+
 ---
 
 ## Fitur Utama
