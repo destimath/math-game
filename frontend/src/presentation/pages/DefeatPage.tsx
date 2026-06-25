@@ -44,7 +44,8 @@ export function DefeatPage() {
   const easierLevel = EASIER[difficulty]
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-5 p-6 text-center">
+    <div className="flex h-full flex-col items-center overflow-y-auto p-6 text-center">
+    <div className="m-auto flex w-full flex-col items-center gap-5">
       <div className="animate-bounce text-6xl">😔</div>
 
       <div>
@@ -88,6 +89,7 @@ export function DefeatPage() {
           🗺️ Kembali ke Peta
         </Button>
       </div>
+    </div>
     </div>
   )
 }

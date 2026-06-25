@@ -3,6 +3,7 @@ package id.legendagaruda.core.player;
 import id.legendagaruda.core.user.UserEntity;
 import id.legendagaruda.core.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ public class PlayerService {
     private static final int[] DAILY_REWARD_TABLE = {10, 15, 20, 25, 30, 50, 100};
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public PlayerProfileResponse getProfile(Long userId) {
         UserEntity user = findUser(userId);

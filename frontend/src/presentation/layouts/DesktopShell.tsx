@@ -35,8 +35,8 @@ export function DesktopShell({ children }: DesktopShellProps) {
 
   if (!showSidebar) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-garuda-blue">
-        <div className="flex h-screen w-full max-w-md flex-col overflow-hidden bg-gradient-to-b from-sky-100 to-amber-50 shadow-2xl">
+      <div className="flex h-dvh items-center justify-center bg-garuda-blue">
+        <div className="flex h-full w-full max-w-md flex-col overflow-hidden bg-gradient-to-b from-sky-100 to-amber-50 shadow-2xl">
           <main className="flex-1 overflow-y-auto">{children}</main>
         </div>
         <PrasastiToast />

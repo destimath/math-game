@@ -159,6 +159,13 @@ export function SettingsPage() {
               <p className="text-center text-xs text-garuda-blue/40">
                 Dibuat dengan ❤️ untuk pelajar Indonesia
               </p>
+              <div className="border-t border-garuda-blue/10" />
+              <div className="flex justify-between">
+                <span>Kontak</span>
+                <a href="mailto:sibertiga4@gmail.com" className="font-bold text-garuda-blue underline">
+                  sibertiga4@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>

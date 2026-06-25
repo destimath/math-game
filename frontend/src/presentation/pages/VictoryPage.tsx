@@ -166,7 +166,8 @@ export function VictoryPage() {
   const prasastiLabel = result.maxCombo >= 5 ? 'Raja Combo! (x' + result.maxCombo + ')' : 'Garuda Berlatih'
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-4 p-6 text-center">
+    <div className="flex h-full flex-col items-center overflow-y-auto p-6 text-center">
+    <div className="m-auto flex w-full flex-col items-center gap-4">
 
       {/* Unlock banner — muncul di atas jika pulau baru terbuka */}
       {unlockedRegionId && (
@@ -261,6 +262,7 @@ export function VictoryPage() {
           </Button>
         )}
       </div>
+    </div>
     </div>
   )
 }

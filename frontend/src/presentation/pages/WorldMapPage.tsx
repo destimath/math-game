@@ -55,7 +55,7 @@ export function WorldMapPage() {
 
         <div ref={containerRef} className="min-h-0 flex-1" />
 
-        <div className="border-t border-black/10 bg-white/90 px-4 py-3 text-sm text-garuda-blue">
+        <div className="border-t border-black/10 bg-white/90 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-sm text-garuda-blue">
           {selectedRegion?.status === 'locked' && (
             <span>🔒 {selectedRegion.name}: {selectedRegion.unlockHint}</span>
           )}

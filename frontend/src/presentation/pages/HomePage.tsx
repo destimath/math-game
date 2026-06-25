@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePlayerProfile } from '../../application/player/usePlayerProfile'
+import { hasSeenOnboarding, markOnboardingSeen } from '../../infrastructure/onboarding/onboardingStorage'
 import { useMissionStore } from '../../store/missionStore'
 import { usePlayerStore } from '../../store/playerStore'
 import { useRegionStore, BATTLES_PER_REGION } from '../../store/regionStore'
 import { Button } from '../components/Button'
 import { DailyRewardModal } from '../components/DailyRewardModal'
 import { MissionCard } from '../components/MissionCard'
+import { OnboardingModal } from '../components/OnboardingModal'
 import { ProgressBar } from '../components/ProgressBar'
 import { StatusBar } from '../components/StatusBar'
 
@@ -14,6 +16,12 @@ export function HomePage() {
   const { profile, claimDailyReward } = usePlayerProfile()
   const navigate = useNavigate()
   const [isRewardModalOpen, setIsRewardModalOpen] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(() => !hasSeenOnboarding())
+
+  function finishOnboarding() {
+    markOnboardingSeen()
+    setShowOnboarding(false)
+  }
 
   const missions = useMissionStore((s) => s.missions)
   const claimMission = useMissionStore((s) => s.claimMission)
@@ -118,6 +126,8 @@ export function HomePage() {
           onClose={() => setIsRewardModalOpen(false)}
         />
       )}
+
+      {showOnboarding && <OnboardingModal onFinish={finishOnboarding} />}
     </div>
   )
 }
