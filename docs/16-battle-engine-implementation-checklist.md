@@ -12,23 +12,23 @@
 
 ## Damage Formula (`calculateDamage.ts`)
 
-- [ ] `BASE_DAMAGE` = 12, seharusnya **10**
-- [ ] Combo bonus 15%/stack tanpa cap, seharusnya **10%/stack dengan cap 100% (combo ≥ 10)**
-- [ ] Tidak ada speed bonus (hingga +20% jika jawab cepat berdasarkan `timeRemaining/timeLimit`)
-- [ ] Difficulty Multiplier (DM per tier) tidak diterapkan ke damage
-- [ ] Garuda Strike (combo kelipatan 3) dikalikan ×1.5, seharusnya **+15 damage flat**
+- [x] `BASE_DAMAGE` = 12, seharusnya **10**
+- [x] Combo bonus 15%/stack tanpa cap, seharusnya **10%/stack dengan cap 100% (combo ≥ 10)**
+- [x] Tidak ada speed bonus (hingga +20% jika jawab cepat berdasarkan `timeRemaining/timeLimit`)
+- [x] Difficulty Multiplier (DM per tier) tidak diterapkan ke damage — dipetakan dari `DifficultyLevel` (`easy`/`medium`/`hard`) via `difficultyMultiplier.ts`
+- [x] Garuda Strike (combo kelipatan 3) dikalikan ×1.5, seharusnya **+15 damage flat**
 
 ## XP Formula (`calculateXp.ts`)
 
-- [ ] `BASE_XP` = 10, seharusnya **5**
-- [ ] Combo bonus flat +2/stack, seharusnya **+5% dari base per stack (proporsional, bukan flat)**
-- [ ] Difficulty Multiplier (DM per tier) tidak diterapkan ke XP
+- [x] `BASE_XP` = 10, seharusnya **5**
+- [x] Combo bonus flat +2/stack, seharusnya **+5% dari base per stack (proporsional, bukan flat)**
+- [x] Difficulty Multiplier (DM per tier) tidak diterapkan ke XP
 
 ## Efek Kabut Sesaat / Bar Semangat (`useBattleSession.ts`)
 
-- [ ] Penalty Semangat flat per difficulty (10/15/20), seharusnya **`round(8 × DM)`** (≈8/10/12)
-- [ ] Tidak ada regen Semangat (+5) saat jawaban benar
-- [ ] Semangat mencapai 0 memicu **Defeat / kalah** (`onDefeat` → DefeatPage) — bertentangan dengan spesifikasi eksplisit dokumen: seharusnya trigger **"Bantuan Garuda"** (auto-hint + isi ulang Semangat ke 30), **bukan game over**
+- [x] Penalty Semangat flat per difficulty (10/15/20), seharusnya **`round(8 × DM)`** (≈8/10/12) — via `calculateKabutEffect.ts`
+- [x] Tidak ada regen Semangat (+5) saat jawaban benar
+- [ ] Semangat mencapai 0 memicu **Defeat / kalah** (`onDefeat` → DefeatPage) — bertentangan dengan spesifikasi eksplisit dokumen: seharusnya trigger **"Bantuan Garuda"** (auto-hint + isi ulang Semangat ke 30), **bukan game over**. *Sengaja belum diubah — di luar scope perbaikan formula, ini perubahan game-feel/UX yang perlu keputusan produk terpisah.*
 
 ## Difficulty Tier / Adaptive Engine
 

@@ -1,6 +1,11 @@
-const BASE_XP = 10
-const COMBO_XP_BONUS = 2
+import { DifficultyLevel } from '../entities/BattleQuestion'
+import { DIFFICULTY_MULTIPLIER } from './difficultyMultiplier'
 
-export function calculateXp(comboAfterHit: number): number {
-  return BASE_XP + (comboAfterHit - 1) * COMBO_XP_BONUS
+const BASE_XP = 5
+const XP_COMBO_STEP = 0.05
+
+export function calculateXp(comboAfterHit: number, tier: DifficultyLevel): number {
+  const dm = DIFFICULTY_MULTIPLIER[tier]
+  const comboBonus = comboAfterHit * XP_COMBO_STEP
+  return Math.round(BASE_XP * dm * (1 + comboBonus))
 }

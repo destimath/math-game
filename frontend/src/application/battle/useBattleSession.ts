@@ -3,15 +3,18 @@ import { QUESTION_BANK } from '../../domain/data/questionBank'
 import { BattleQuestion, DifficultyLevel } from '../../domain/entities/BattleQuestion'
 import { calculateDamage } from '../../domain/rules/calculateDamage'
 import { calculateXp } from '../../domain/rules/calculateXp'
+import { calculateKabutEffect } from '../../domain/rules/calculateKabutEffect'
 import { sfxPlayer } from '../../infrastructure/audio/sfxPlayer'
+
+const SEMANGAT_REGEN = 5
 
 const DIFFICULTY_CONFIG: Record<
   DifficultyLevel,
-  { questionCount: number; semangatPenalty: number; kepingPerCorrect: number }
+  { questionCount: number; kepingPerCorrect: number }
 > = {
-  easy:   { questionCount: 8,  semangatPenalty: 10, kepingPerCorrect: 3 },
-  medium: { questionCount: 10, semangatPenalty: 15, kepingPerCorrect: 5 },
-  hard:   { questionCount: 12, semangatPenalty: 20, kepingPerCorrect: 8 },
+  easy:   { questionCount: 8,  kepingPerCorrect: 3 },
+  medium: { questionCount: 10, kepingPerCorrect: 5 },
+  hard:   { questionCount: 12, kepingPerCorrect: 8 },
 }
 
 function shufflePick<T>(arr: T[], n: number): T[] {
@@ -110,12 +113,15 @@ export function useBattleSession(
         const newCombo = combo + 1
         const newMaxCombo = Math.max(maxComboRef.current, newCombo)
         maxComboRef.current = newMaxCombo
-        const { damage, isGarudaStrike } = calculateDamage(newCombo)
+        const { damage, isGarudaStrike } = calculateDamage(
+          newCombo, difficulty, secondsLeft, currentQuestion.timeLimitSeconds,
+        )
         const newBossBar = Math.max(0, bossBar - damage)
-        const xpGain = calculateXp(newCombo)
+        const xpGain = calculateXp(newCombo, difficulty)
         const newXp = xpEarned + xpGain
         const newKeping = kepingEarned + config.kepingPerCorrect
         const newCorrect = questionsCorrect + 1
+        const newSemangat = Math.min(STARTING_BAR, semangatBar + SEMANGAT_REGEN)
 
         setCombo(newCombo)
         setMaxCombo(newMaxCombo)
@@ -123,6 +129,7 @@ export function useBattleSession(
         setXpEarned(newXp)
         setKepingEarned(newKeping)
         setQuestionsCorrect(newCorrect)
+        setSemangatBar(newSemangat)
         setFeedback('correct')
         setShowGarudaStrike(isGarudaStrike)
 
@@ -131,7 +138,8 @@ export function useBattleSession(
 
         setTimeout(() => advance(newBossBar, newXp, newKeping, newCorrect), 1000)
       } else {
-        const newSemangat = Math.max(0, semangatBar - config.semangatPenalty)
+        const kabut = calculateKabutEffect(difficulty)
+        const newSemangat = Math.max(0, semangatBar - kabut)
         setCombo(0)
         setSemangatBar(newSemangat)
         setFeedback('wrong')
